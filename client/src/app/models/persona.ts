@@ -3,4 +3,5 @@ export interface Persona{
     cedula: number;
     nombre: string;
     apellido: string;
+    createdAt: Date;
 }

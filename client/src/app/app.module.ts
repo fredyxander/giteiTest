@@ -8,6 +8,7 @@ import { PersonFormComponent } from './components/person-form/person-form.compon
 import { PersonsListComponent } from './components/persons-list/persons-list.component';
 import { PersonsService } from './services/persons.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [PersonsService],
   bootstrap: [AppComponent]
