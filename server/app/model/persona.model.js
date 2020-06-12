@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Persona = sequelize.define('persona', {
-      id: { type: Sequelize.INTEGER(11), primaryKey: true },
+      id: { type: Sequelize.INTEGER(11), primaryKey: true,  autoIncrement: true },
       cedula: {
       type: Sequelize.STRING
       },
