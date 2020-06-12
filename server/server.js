@@ -16,10 +16,19 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const db = require("./app/config/db.config");
+
+// force: true will drop the table if it already exists
+db.sequelize.sync({force: true}).then(() => {
+    console.log('Drop and Resync with { force: true }');
+});
+
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Application working." });
 });
+
+require("./app/routes/persona.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
