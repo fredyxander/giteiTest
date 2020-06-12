@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonsService } from '../../services/persons.service';
 
 @Component({
   selector: 'app-persons-list',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonsListComponent implements OnInit {
 
-  constructor() { }
+  persons: any = [];
+  constructor(
+    private PersonSvc: PersonsService
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.PersonSvc.getPersons().subscribe(
+      res => {
+        this.persons = res;
+        console.log(this.persons);
+      },
+      err => console.error(err)
+    );
   }
 
 }
