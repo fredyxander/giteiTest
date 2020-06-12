@@ -1,0 +1,10 @@
+.vl {
+    border-left: 6px solid green;
+    height: 50px;
+}
+
+.subInfo{
+    font-size: 15px;
+    color: white;
+    width: 70%;
+}

@@ -9,13 +9,15 @@ import { PersonsListComponent } from './components/persons-list/persons-list.com
 import { PersonsService } from './services/persons.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     PersonFormComponent,
-    PersonsListComponent
+    PersonsListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

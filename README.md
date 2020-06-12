@@ -1,4 +1,4 @@
-# gitei Project
+# Gitei Project Test
 Este proyecto permite la creación de una base de datos en mysql, la cual se conecta con el servidor que es desarrollado en nodejs, express y sequelize y permiten crear un crud sobre una tabla creada en la base de datos, que finalmente se comunica con el cliente el cual es desarrollado en Angular y bootstrap.
 
 ---
