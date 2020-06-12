@@ -8,29 +8,49 @@
   <div class="col-md-4">
     <div class="card border-0">
       <div class="card-body">
-        <form>
+        <form #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSubmit()">
+          <p *ngIf="!registerForm.form.valid" class="text-danger">Por favor completar todos los campos</p>
           <div class="pb-2">
             Nombre
           </div>
           <div class="form-group">
-            <input type="text" name="name" [(ngModel)]="persona.nombre" placeholder="Ingrese el nombre de la persona"
-              class="form-control" autofocus>
+            <input type="text" id="name" name="name" [(ngModel)]="persona.nombre" placeholder="Ingrese el nombre de la persona" required #name="ngModel" class="form-control" autofocus>
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger" >
+                <div *ngIf="name.errors.required">
+                  El nombre es requerido
+                </div>
+              </div>
           </div>
           <div class="pb-2">
             Apellido
           </div>
           <div class="form-group">
-            <input type="text" name="lastname" [(ngModel)]="persona.apellido"
+            <input type="text" id="lastname" name="lastname" [(ngModel)]="persona.apellido" required #lastname="ngModel"
               placeholder="Ingrese el apellido de la persona" class="form-control">
+              <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="text-danger" >
+                <div *ngIf="lastname.errors.required">
+                  El apellido es requerido.
+                </div>
+              </div>
           </div>
           <div class="pb-2">
             Cedula
           </div>
           <div class="form-group">
-            <input type="number" name="document" [(ngModel)]="persona.cedula" placeholder="Ingrese la cedula"
-              class="form-control">
+            <input id="document" name="document" [(ngModel)]="persona.cedula" required #document="ngModel" placeholder="Ingrese la cedula" class="form-control" maxlength="10" pattern="[0-9]+">
+            <div *ngIf="document.invalid && (document.dirty || document.touched)" class="text-danger" >
+              <div *ngIf="document.errors.required">
+                La cedula es requerida
+              </div>
+              <div *ngIf="document.errors.pattern">
+                Por favor ingrese solo numeros
+              </div>
+              <div *ngIf="!document.errors.pattern && document.errors.maxlength">
+                el numero ingresado es demasiado largo
+              </div>
+            </div>
           </div>
-          <button class="btn btn-success btn-block p-2" (click)="savePerson()">Guardar usuario</button>
+          <button type="submit" class="btn btn-success btn-block">Guardar</button>
         </form>
       </div>
     </div>
@@ -54,7 +74,7 @@
     </div>
   </div>
 </div>
-<div class="row d-flex justify-content-center">
+<div class="row d-flex justify-content-center pt-4">
   <a routerLink="/persons" class="btn btn-info d-flex justify-content-center align-items-center">
     <i class="far fa-eye fa-2x"></i>
     <span class="ml-3 ">Ver listado de personas agregadas</span>

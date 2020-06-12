@@ -14,12 +14,23 @@ export class PersonsListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.readPersons();
+  }
+
+  readPersons(){
     this.PersonSvc.getPersons().subscribe(
       res => {
         this.persons = res;
-        console.log(this.persons);
       },
       err => console.error(err)
+    );
+  }
+
+  deletePerson(id){
+    this.PersonSvc.deletePerson(id).subscribe(
+      res => {
+        this.readPersons();
+      }
     );
   }
 

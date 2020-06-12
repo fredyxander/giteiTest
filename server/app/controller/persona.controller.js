@@ -1,6 +1,7 @@
 const db = require('../config/db.config.js');
 const Persona = db.personas;
 
+//validations and controllers
 // Create a person
 exports.create = (req, res) => {
     // Save data into MySQL database
@@ -31,27 +32,47 @@ exports.findById = (req, res) => {
 };
 
 // Update a person by id
-exports.update = (req, res) => {
+exports.update = async  (req, res, next) => {
     const id = req.params.personaId;
-    Persona.update({
-        cedula: req.body.cedula,
-        nombre: req.body.nombre,
-        apellido: req.body.apellido
-    }, {
-        where: {
-            id: req.params.personaId
+    try {
+        const updatedInd = await Persona.update({
+            cedula: req.body.cedula,
+            nombre: req.body.nombre,
+            apellido: req.body.apellido
+        }, {
+            where: {
+                id: req.params.personaId
+            }
+        });
+        if (updatedInd) {
+            res.status(200).send('persona con id = ' + id + 'actualizada');
         }
-    }).then(() => {
-        res.status(200).send("updated successfully a person with id = " + id);
-    });
+        else {
+            res.status(404).send('No se encontro a esta persona');
+        }
+    }
+    catch (e) {
+        next(e);
+    }
 };
 
 // Delete a person by Id
-exports.delete = (req, res) => {
-    const personaId = req.params.personaId;
-    Persona.destroy({
-      where: { id: personaId }
-    }).then(() => {
-      res.status(200).send('deleted successfully a person with id = ' + personaId);
-    });
-  };
+exports.delete = async (req, res, next) => {
+    const id = req.params.personaId
+    try {
+        const deletedInd = await Persona.destroy({
+            where: {
+                id: id
+            }
+        });
+        if (deletedInd) {
+            res.status(200).send('persona con id = ' + id + 'eliminada');
+        }
+        else {
+            res.status(404).send('No se encontro o ya se elimino');
+        }
+    }
+    catch (e) {
+        next(e);
+    }
+};

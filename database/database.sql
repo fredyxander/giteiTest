@@ -6,7 +6,8 @@ CREATE TABLE personas(
     cedula BigInt(20),
     nombre varchar(100),
     apellido varchar(100),
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATE DEFAULT CURRENT_DATE
 );
 
 Describe personas;

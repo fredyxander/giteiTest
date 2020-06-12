@@ -1,7 +1,8 @@
 export interface Persona{
-    id?: number;
+    id: number;
     cedula: number;
     nombre: string;
     apellido: string;
     createdAt: Date;
+    updatedAt: Date;
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from '../models/persona';
-import { Observable } from 'rxjs';
-
+import { Observable, of } from 'rxjs';
+import { map, catchError } from '../../../node_modules/rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +17,11 @@ export class PersonsService {
     return this.http.get(`${this.API}/personas`);
   }
 
-  GetPerson(personId){
-    return this.http.get(`${this.API}/personas/${personId}`);
+  GetPerson(personId): Observable<Persona>{
+    return this.http.get(`${this.API}/personas/${personId}`).pipe(
+      map((res) => res),
+      catchError((err, c) => of(null))
+    );
   }
 
   savePerson(persona: Persona){
@@ -26,11 +29,13 @@ export class PersonsService {
   }
 
   deletePerson(personId){
-    return this.http.delete(`${this.API}/personas/${personId}`);
+    return this.http.delete(`${this.API}/personas/${personId}`,
+    {responseType: 'text'});
   }
 
   updatePerson(personId, updatePerson: Persona): Observable<any>{
-    return this.http.put(`${this.API}/personas/${personId}`, updatePerson);
+    return this.http.put(`${this.API}/personas/${personId}`, updatePerson,
+    {responseType: 'text'});
   }
 
 }
